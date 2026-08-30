@@ -28,10 +28,7 @@ final class CalendarScrollView: UIScrollView {
   init() {
     super.init(frame: .zero)
     contentInsetAdjustmentBehavior = .never
-
-    if #available(iOS 26.0, *) {
-      topEdgeEffect.style = .soft
-    }
+    configureTopEdgeEffect()
   }
 
   required init?(coder _: NSCoder) {
@@ -41,6 +38,12 @@ final class CalendarScrollView: UIScrollView {
   // MARK: Internal
 
   var cachedAccessibilityElements: [Any]?
+
+  override var contentOffset: CGPoint {
+    didSet {
+      configureTopEdgeEffect()
+    }
+  }
 
   override var contentInsetAdjustmentBehavior: ContentInsetAdjustmentBehavior {
     didSet {
@@ -80,6 +83,15 @@ final class CalendarScrollView: UIScrollView {
       return cachedAccessibilityElements
     }
     set { }
+  }
+
+  // MARK: Private
+
+  private func configureTopEdgeEffect() {
+    if #available(iOS 26.0, *) {
+      topEdgeEffect.style = .soft
+      topEdgeEffect.isHidden = false
+    }
   }
 
 }
