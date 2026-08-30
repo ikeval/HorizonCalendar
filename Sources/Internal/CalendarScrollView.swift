@@ -28,6 +28,10 @@ final class CalendarScrollView: UIScrollView {
   init() {
     super.init(frame: .zero)
     contentInsetAdjustmentBehavior = .never
+
+    if #available(iOS 26.0, *) {
+      topEdgeEffect.style = .soft
+    }
   }
 
   required init?(coder _: NSCoder) {
