@@ -93,7 +93,11 @@ public final class CalendarViewProxy: ObservableObject {
 
   weak var _calendarView: CalendarView? {
     didSet {
-      if oldValue != nil, _calendarView != oldValue {
+      if
+        oldValue != nil,
+        _calendarView != oldValue,
+        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1"
+      {
         fatalError("Attempted to use an existing `CalendarViewProxy` instance with a new `CalendarViewRepresentable`.")
       }
     }
